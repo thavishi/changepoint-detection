@@ -19,6 +19,8 @@
 
 % Start with a clean slate.
 clear;
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\matlab\lightspeed')
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\matlab\code\hazards')
 
 % How many time steps to generate?
 T = 1000;

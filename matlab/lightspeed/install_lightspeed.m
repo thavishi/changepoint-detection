@@ -76,42 +76,42 @@ else
 end
 
 % Routines that use LAPACK
-lapacklib = '';
-blaslib = '';
+lapacklib = 'C:\Program Files\MATLAB\R2018b\extern\lib\win64\mingw64\libmwblas.lib';
+blaslib = 'C:\Program Files\MATLAB\R2018b\extern\lib\win64\mingw64\libmwblas.lib';
 lapackflags = flags;
-if atleast78
-	lapackflags = [lapackflags ' -DBLAS64'];
-end
-if ispc
-  if strncmp(compiler,'MSVC',4)
-    if atleast65
-      % version >= 6.5
-      lapacklib = fullfile(libdir,'libmwlapack.lib');
-    end
-  else
-    lapacklib = fullfile(libdir,'libmwlapack.lib');
-  end
-  if atleast75
-    blaslib = fullfile(libdir,'libmwblas.lib');
-  end
-  %%% Paste the location of libmwlapack.lib %%%
-  %lapacklib = '';
-  if ~exist(lapacklib,'file')
-    lapacklib = 'dtrsm.c';
-    fprintf('libmwlapack.lib was not found.  To get additional optimizations, paste its location into install_lightspeed.m\n');
-  else
-    fprintf('Using the lapack library at %s\n',lapacklib);
-  end
-else
-  % in version 7.5, non-PC systems do not need to specify lapacklib, 
-  % but they must use an underscore when calling lapack routines
-	% http://www.mathworks.com/help/techdoc/matlab_external/br_2m24-1.html
-	lapackflags = [lapackflags ' -DUNDERSCORE_LAPACK_CALL'];
-  if atleast76
-    lapacklib = '-lmwlapack';
-    blaslib = '-lmwblas';
-  end
-end
+% if atleast78
+% 	lapackflags = [lapackflags ' -DBLAS64'];
+% end
+% if ispc
+%   if strncmp(compiler,'MSVC',4)
+%     if atleast65
+%       % version >= 6.5
+%       lapacklib = fullfile(libdir,'libmwlapack.lib');
+%     end
+%   else
+%     lapacklib = fullfile(libdir,'libmwlapack.lib');
+%   end
+%   if atleast75
+%     blaslib = fullfile(libdir,'libmwblas.lib');
+%   end
+%   %%% Paste the location of libmwlapack.lib %%%
+%   %lapacklib = '';
+%   if ~exist(lapacklib,'file')
+%     lapacklib = 'dtrsm.c';
+%     fprintf('libmwlapack.lib was not found.  To get additional optimizations, paste its location into install_lightspeed.m\n');
+%   else
+%     fprintf('Using the lapack library at %s\n',lapacklib);
+%   end
+% else
+%   % in version 7.5, non-PC systems do not need to specify lapacklib, 
+%   % but they must use an underscore when calling lapack routines
+% 	% http://www.mathworks.com/help/techdoc/matlab_external/br_2m24-1.html
+% 	lapackflags = [lapackflags ' -DUNDERSCORE_LAPACK_CALL'];
+%   if atleast76
+%     lapacklib = '-lmwlapack';
+%     blaslib = '-lmwblas';
+%   end
+% end
 disp(['mex' lapackflags ' solve_triu.c "' lapacklib '" "' blaslib '"'])
 eval(['mex' lapackflags ' solve_triu.c "' lapacklib '" "' blaslib '"']);
 eval(['mex' lapackflags ' solve_tril.c "' lapacklib '" "' blaslib '"']);

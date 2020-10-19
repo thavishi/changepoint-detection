@@ -4,12 +4,17 @@
 close all;
 clearvars;
 
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\matlab\lightspeed')
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\matlab\code\hazards')
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\matlab\code\priors')
+addpath('C:\Users\thavi\Dropbox (MIT)\Research\Mitsubishi\Code\changepoint-detection\data')
+
 
 %% Import data
 
 % 2d toy dataset
-% load('2D_Toy_Data.mat');
-% X = [Xn{3,1}'];
+load('2D_Toy_Data.mat');
+X = [Xn{2,1}'];
 
 % Carrot Grating dataset
 % load('CarrotGrating.mat');
@@ -32,8 +37,8 @@ clearvars;
 % X = bee;
 
 % Preprocessed Peeling
-load('proc_data.mat')
-X = proc_data{1,2}.active.X(1:7,:)';
+% load('proc_data.mat')
+% X = proc_data{1,2}.active.X(1:7,:)';
 
 
 %% Initialization
@@ -153,7 +158,7 @@ for t=1:T
            flag = 0;
            cnt = 0;
            ChPnt = [ChPnt; t-maxes(t)+1];
-           delayCP(f) = toc(timecp);
+           %delayCP(f) = toc(timecp);
            prev_cp = last_cp;
            last_cp = ChPnt(length(ChPnt));
            curr_t = t-last_cp;
